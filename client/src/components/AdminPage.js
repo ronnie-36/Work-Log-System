@@ -1,4 +1,4 @@
-import React, {useState} from "react"; 
+import React, {useEffect, useState} from "react"; 
 import EmployeeList from "./EmployeeList";
 import Modal from "./Modal";
 
@@ -6,10 +6,13 @@ function AdminPage(){
 	const [showModal, setShowModal] = useState(false);
 	const [ListOfEmployees, setListOfEmployees] = useState([]);
 
-	function updateEmployeeList(){
+	function updateEmployeeList(emp){
 		console.log("hi");
+		setListOfEmployees([...ListOfEmployees,emp]);
 	}
+	useEffect(()=>{
 
+	},[ListOfEmployees])
 	return (
 		<div>
 			{/* Navbar - https://v1.tailwindcss.com/components/navigation */}
@@ -28,10 +31,10 @@ function AdminPage(){
 				</div>
 			</nav>
 
-			<div class="w-full flex justify-center py-12" id="button">
+			<div className="w-full flex justify-center py-12" id="button">
 				<table>
 					<thead>
-						<button onClick={() => setShowModal(true)} class="flex justify-center w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm" onclick="modalHandler(true)">
+						<button onClick={() => setShowModal(true)} className="flex justify-center w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm" >
 							Add new Employee
 						</button>
 						<Modal 
@@ -41,7 +44,8 @@ function AdminPage(){
 						/>
 					</thead>
 					<tbody>
-						<EmployeeList />
+						<EmployeeList ListOfEmployees={ListOfEmployees}/>
+						
 					</tbody>
 				</table>
 
