@@ -2,31 +2,61 @@ import React, {useEffect, useState  } from "react";
 import {useNavigate} from 'react-router-dom'; 
 import AddTaskModal from "./AddTaskModal";
 import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-		
-const data = [
-	{ name: 'Group A', value: 400 },
-	{ name: 'Group B', value: 300 },
-	{ name: 'Group C', value: 300 },
-	{ name: 'Group D', value: 200 },
-	{ name: 'Group E', value: 278 },
-	{ name: 'Group F', value: 189 },
-  ];
-  
-  const data02 = [
-	{ name: 'Group A', value: 2400 },
-	{ name: 'Group B', value: 4567 },
-	{ name: 'Group C', value: 1398 },
-	{ name: 'Group D', value: 9800 },
-	{ name: 'Group E', value: 3908 },
-	{ name: 'Group F', value: 4800 },
-  ];
-function EmployeePage(){
+import axios from 'axios';		
+
+const EmployeePage=()=>{
 	const navigate=useNavigate();
+	const [tasks,setTasks]=useState([]);
 	const [showModal, setShowModal]=useState(false);
 	const [listOfTasks, setListOfTasks]=useState([]);
 	
-	function updateTaskList(currTask){
-		setListOfTasks([...listOfTasks,currTask]);
+	const getTasks=async(date)=>{
+		try{
+			const config = {
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+					"X-AUTH-TOKEN":localStorage.getItem("token")
+				  },
+				  
+		  };
+			const res=await axios.post('http://localhost:5000/api/tasks',{date:date},config);
+			if(res.data)
+			{
+				console.log(res.data);
+				const data=res.data;
+				setListOfTasks(data);
+			}
+			else
+		console.log(res);}
+		catch(e){
+			console.log(e);
+		}
+	}
+	const updateTaskList=async(currTask)=>{
+		console.log(currTask);
+		try{
+			const config = {
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+					"X-AUTH-TOKEN":localStorage.getItem("token")
+				  }
+				
+		  };
+			const res=await axios.post('http://localhost:5000/api/tasks/add',{...currTask},config);
+			if(res.data)
+			{
+				console.log(res.data);
+				getTasks(new Date());
+				
+			}
+			else
+		console.log(res);}
+		catch(e){
+			console.log(e);
+		}
+		
 	}
 	const logOut=()=>{
 		localStorage.removeItem("role");
@@ -40,7 +70,7 @@ function EmployeePage(){
 	  	}
 	 },[]);
 
-	// useEffect(()=>{},[listOfTasks]);
+	 useEffect(()=>{getTasks(new Date())},[]);
 
 	return (
 		<div>
@@ -69,17 +99,17 @@ function EmployeePage(){
 						<AddTaskModal 
 							show={showModal} 
 							onClose={() => setShowModal(false)} 
-							// onSubmit={updateTaskList}
+							 onSubmit={updateTaskList}
 						/>
 					</div>
 					<div>
 					
 						<PieChart width={600} height={400}>
 						<Pie
-							dataKey="amt"
-							nameKey={"name"}
+							dataKey="duration"
+							nameKey={"taskType"}
 							isAnimationActive={true}
-							data={data}
+							data={listOfTasks}
 							cx="40%"
 							cy="50%"
 							outerRadius={80}
@@ -87,10 +117,10 @@ function EmployeePage(){
 							label
 						/>
 						<Pie
-							dataKey="uv"
-							nameKey={"name"}
+							dataKey="duration"
+							nameKey={"taskType"}
 							isAnimationActive={true}
-							data={data}
+							data={listOfTasks}
 							cx={500} cy={200}
 							outerRadius={80}
 							fill="#8884d8"
@@ -100,13 +130,13 @@ function EmployeePage(){
 						</PieChart>
 						<ResponsiveContainer width="100%" height={400}>
 
-						<BarChart width={600} height={40} data={data}>
-						<XAxis dataKey="name" />
+						<BarChart width={600} height={40} data={listOfTasks}>
+						<XAxis dataKey="taskType" />
 							<YAxis />
 							<Tooltip />
 							<Legend />
-							<Bar dataKey="uv">
-							{data.map((entry, index) => (
+							<Bar dataKey="">
+							{listOfTasks.map((entry, index) => (
 								<Cell cursor="pointer" fill={ '#8884d8'} key={`cell-${index}`} />
 							))}
 							</Bar>

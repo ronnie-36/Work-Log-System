@@ -3,9 +3,9 @@ import React, {useState} from "react";
 function AddTaskModal(props){
 	const [taskInfo, setTaskInfo]=useState({
 		description: "",
-		type: "",
+		taskType: "break",
 		startTime: "",
-		totalTime: ""
+		duration: ""
 	});
 
 	function handleChange(event){
@@ -19,7 +19,7 @@ function AddTaskModal(props){
             case "task-type":
                 setTaskInfo(             
                     {...taskInfo ,
-                    type: event.target.value}
+                    taskType: event.target.value}
                 );
                 break;
             case "start-time":
@@ -31,7 +31,7 @@ function AddTaskModal(props){
             case "total-time":
                 setTaskInfo(             
                     {...taskInfo ,
-                    totalTime: event.target.value}
+                    duration: event.target.value}
                 )
                 break;
             default:

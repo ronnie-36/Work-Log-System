@@ -36,7 +36,7 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
     }
 });
 
-router.get('/', requireJwtAuth, async (req, res) => {
+router.post('/', requireJwtAuth, async (req, res) => {
     try {
         let { date, employeeId } = req.body;
         if (req.user.role != 'admin') {
@@ -47,6 +47,7 @@ router.get('/', requireJwtAuth, async (req, res) => {
         const weekEnd = endOfWeek(date, { weekStartsOn: 1 });
         const user = await User.findById(employeeId);
         const tasks = user.tasks;
+        console.log(tasks);
         let filteredTasks = tasks.filter((task) =>
             new Date(task.startTime).getTime() >= new Date(weekStart).getTime()
             && new Date(task.startTime).getTime() <= new Date(weekEnd).getTime()
