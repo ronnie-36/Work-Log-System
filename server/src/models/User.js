@@ -89,6 +89,11 @@ userSchema.methods.registerUser = (newUser, callback) => {
   });
 };
 
+userSchema.methods.addTask = function (task, callback) {
+  this.tasks.push(task);
+  this.save(callback);
+};
+
 userSchema.methods.comparePassword = function (candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) return callback(err);
