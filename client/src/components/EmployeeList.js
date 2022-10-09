@@ -1,8 +1,7 @@
 import React from 'react';
 
 function EmployeeList(props){
-
-	const {ListOfEmployees}=props;
+	const {listOfEmployees}=props;
 
 	return (
 		<div>
@@ -26,7 +25,7 @@ function EmployeeList(props){
 							</thead>
 
 							<tbody className="bg-white">							
-								{ListOfEmployees.map((item) => {
+								{listOfEmployees.map((item) => {
 									return(
 										<tr>
 											<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
