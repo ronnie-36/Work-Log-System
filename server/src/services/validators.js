@@ -14,4 +14,11 @@ const registerSchema = Joi.object().keys({
   joiningDate: Joi.string().trim().required(),
 });
 
-export { loginSchema, registerSchema };
+const updateSchema = Joi.object().keys({
+  name: Joi.string().trim().min(2).max(30).required(),
+  contact: Joi.string().trim().required(),
+  department: Joi.string().trim().required(),
+  joiningDate: Joi.string().trim().required(),
+});
+
+export { loginSchema, registerSchema, updateSchema };

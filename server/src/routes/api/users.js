@@ -2,7 +2,7 @@ import { Router } from 'express';
 import Joi from 'joi';
 import requireJwtAuth from '../../middleware/requireJwtAuth.js';
 import User from '../../models/User.js';
-import { registerSchema } from '../../services/validators.js';
+import { registerSchema, updateSchema } from '../../services/validators.js';
 
 const router = Router();
 
@@ -24,25 +24,72 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
       return res.status(422).send({ message: 'Email is in use' });
     }
 
-    try {
-      const newUser = await new User({
-        name,
-        email,
-        contact,
-        password,
-        department,
-        joiningDate,
-      });
+    const newUser = new User({
+      name,
+      email,
+      contact,
+      password,
+      department,
+      joiningDate,
+    });
 
-      newUser.registerUser(newUser, (err, user) => {
-        if (err) throw err;
-        res.json({ message: 'Add success.' }); // just redirect to login
-      });
-    } catch (err) {
-      return next(err);
-    }
+    newUser.registerUser(newUser, (err, user) => {
+      if (err) throw err;
+      res.json({ message: 'Add success.' });
+    });
   } catch (err) {
-    return next(err);
+    res.status(500).json({ message: 'Something went wrong.' });
+  }
+});
+
+router.put('/update/profile', requireJwtAuth, async (req, res, next) => {
+
+  const { error } = Joi.validate(req.body, updateSchema);
+  if (error) {
+    return res.status(422).send({ message: error.details[0].message });
+  }
+
+  const { name, contact, department, joiningDate } = req.body;
+
+  try {
+    const user = await User.findById(req.user.id);
+    const userData = { name, contact, department, joiningDate };
+    user.updateProfile(userData, (err, user) => {
+      if (err) throw err;
+      res.json({ message: 'Updated profile successfully.' });
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong.' });
+  }
+});
+
+router.put('/update/password', requireJwtAuth, async (req, res, next) => {
+
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(req.user.id);
+    user.comparePassword(oldPassword, function (err, isMatch) {
+      if (err) {
+        throw err;
+      }
+      if (!isMatch) {
+        return res.json({ message: 'Wrong Old Password.' });
+      }
+      const passwordSchema = {
+        'New Password': Joi.string().trim().min(6).max(20).required(),
+      }
+      const { error } = Joi.validate({ 'New Password': newPassword }, passwordSchema);
+      if (error) {
+        return res.status(422).send({ message: error.details[0].message });
+      }
+      user.updatePassword(newPassword, (err, user) => {
+        if (err) throw err;
+        res.json({ message: 'Updated password successfully.' });
+      });
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong.' });
   }
 });
 
