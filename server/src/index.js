@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from "cors";
 import "dotenv/config";
 import passport from 'passport';
 import { jwtLogin } from './services/jwtStrategy.js';
@@ -8,6 +9,13 @@ import { passportLogin } from './services/localStrategy.js';
 import routes from './routes/index.js';
 
 const app = express();
+
+let corsOptions = {
+  origin: `${process.env.FRONTEND_URL}`,
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Bodyparser Middleware
 app.use(express.json());
