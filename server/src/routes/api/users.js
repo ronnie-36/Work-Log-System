@@ -10,7 +10,7 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
   if (req.user.role != 'admin')
     return res.status(400).json({ message: 'You do not have privileges to add employee.' });
 
-  const { error } = Joi.validate(req.body, registerSchema);
+  const { error } = registerSchema.validate(req.body);
   if (error) {
     return res.status(422).send({ message: error.details[0].message });
   }
@@ -18,10 +18,15 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
   const { name, email, contact, department, joiningDate, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      $or: [
+        { email },
+        { contact }
+      ]
+    });
 
     if (existingUser) {
-      return res.status(422).send({ message: 'Email is in use' });
+      return res.status(422).send({ message: 'Email/Contact no. is in use' });
     }
 
     const newUser = new User({
@@ -44,7 +49,7 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
 
 router.put('/update/profile', requireJwtAuth, async (req, res, next) => {
 
-  const { error } = Joi.validate(req.body, updateSchema);
+  const { error } = updateSchema.validate(req.body);
   if (error) {
     return res.status(422).send({ message: error.details[0].message });
   }
@@ -79,7 +84,7 @@ router.put('/update/password', requireJwtAuth, async (req, res, next) => {
       const passwordSchema = {
         'New Password': Joi.string().trim().min(6).max(20).required(),
       }
-      const { error } = Joi.validate({ 'New Password': newPassword }, passwordSchema);
+      const { error } = passwordSchema.validate({ 'New Password': newPassword });
       if (error) {
         return res.status(422).send({ message: error.details[0].message });
       }

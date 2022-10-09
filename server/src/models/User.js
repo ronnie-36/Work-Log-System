@@ -150,7 +150,7 @@ export const validateUser = (user) => {
     password: Joi.string().min(6).max(20).allow('').allow(null),
   };
 
-  return Joi.validate(user, schema);
+  return schema.validate(user);
 };
 
 const User = mongoose.model('User', userSchema);
