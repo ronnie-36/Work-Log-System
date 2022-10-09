@@ -32,6 +32,7 @@ const userSchema = new Schema(
     },
     department: String,
     joiningDate: Date,
+    activationStatus: { type: Boolean, default: true },
     role: { type: String, default: 'employee' },
     tasks: [{
       description: String,
@@ -55,6 +56,7 @@ userSchema.methods.toJSON = function () {
     department: this.department,
     joiningDate: this.joiningDate,
     role: this.role,
+    activationStatus: this.activationStatus,
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };
@@ -87,6 +89,11 @@ userSchema.methods.registerUser = (newUser, callback) => {
       newUser.save(callback);
     });
   });
+};
+
+userSchema.methods.deactivate = function (callback) {
+  this.activationStatus = false;
+  this.save(callback);
 };
 
 userSchema.methods.addTask = function (task, callback) {

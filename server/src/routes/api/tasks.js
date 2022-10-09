@@ -7,6 +7,9 @@ const router = Router();
 
 router.post('/add', requireJwtAuth, async (req, res, next) => {
 
+    if (req.user.activationStatus == false)
+        return res.status(400).json({ message: 'You can not add tasks (Account deactivated).' });
+
     const { description, taskType, startTime, duration } = req.body;
 
     const curDateTime = new Date();

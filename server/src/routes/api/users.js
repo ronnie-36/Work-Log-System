@@ -46,6 +46,22 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
   }
 });
 
+router.get('/deactivate', requireJwtAuth, async (req, res) => {
+  try {
+    if (req.user.role != 'admin')
+      return res.status(400).json({ message: 'You do not have privileges to deactivate employees.' });
+
+    const { employeeId } = req.body;
+    const user = await User.findById(employeeId);
+    user.deactivate((err, user) => {
+      if (err) throw err;
+      res.json({ message: 'Deactivated successfully.' });
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong.' });
+  }
+});
+
 router.get('/me', requireJwtAuth, (req, res) => {
   const me = req.user.toJSON();
   res.json({ me });
