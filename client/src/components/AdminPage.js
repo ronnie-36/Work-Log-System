@@ -6,13 +6,12 @@ function AdminPage(){
 	const [showModal, setShowModal] = useState(false);
 	const [ListOfEmployees, setListOfEmployees] = useState([]);
 
-	function updateEmployeeList(emp){
-		console.log("hi");
-		setListOfEmployees([...ListOfEmployees,emp]);
+	function updateEmployeeList(currEmployee){
+		setListOfEmployees([...ListOfEmployees,currEmployee]);
 	}
-	useEffect(()=>{
 
-	},[ListOfEmployees])
+	useEffect(()=>{},[ListOfEmployees])
+
 	return (
 		<div>
 			{/* Navbar - https://v1.tailwindcss.com/components/navigation */}
@@ -32,8 +31,8 @@ function AdminPage(){
 			</nav>
 
 			<div className="w-full flex justify-center py-12" id="button">
-				<table>
-					<thead>
+				<div>
+					<div>
 						<button onClick={() => setShowModal(true)} className="flex justify-center w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm" >
 							Add new Employee
 						</button>
@@ -42,13 +41,11 @@ function AdminPage(){
 							onClose={() => setShowModal(false)} 
 							onSubmit={updateEmployeeList}
 						/>
-					</thead>
-					<tbody>
-						<EmployeeList ListOfEmployees={ListOfEmployees}/>
-						
-					</tbody>
-				</table>
-
+					</div>
+					<div>
+						<EmployeeList ListOfEmployees={ListOfEmployees}/>						
+					</div>
+				</div>
             </div>
 		</div>
 	);

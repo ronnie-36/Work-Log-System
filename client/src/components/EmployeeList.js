@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 function EmployeeList(props){
 
-const {ListOfEmployees}=props;
+	const {ListOfEmployees}=props;
 
 	return (
 		<div>
@@ -25,9 +25,7 @@ const {ListOfEmployees}=props;
 								</tr>
 							</thead>
 
-							<tbody className="bg-white">
-								
-
+							<tbody className="bg-white">							
 								{ListOfEmployees.map((item) => {
 									return(
 										<tr>
@@ -51,7 +49,8 @@ const {ListOfEmployees}=props;
 												className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
 												<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
 											</td>
-										</tr>);
+										</tr>
+									);
 								})}
 							</tbody>
 						</table>

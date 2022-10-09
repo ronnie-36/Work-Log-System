@@ -8,7 +8,7 @@ function Modal(props){
         department: "",
         joiningDate: "",
         password: ""
-    });
+    }); 
 
     function handleChange(event){
         switch(event.target.id){
@@ -51,6 +51,23 @@ function Modal(props){
         }
     }
 
+    function handleClose(){
+        props.onClose();
+    }
+
+    function handleSubmit(){
+        console.log(employeeInfo); 
+        props.onSubmit(employeeInfo); 
+        setEmployeeInfo({
+            name: "",
+            email: "",
+            contact: "",
+            department: "",
+            joiningDate: "",
+            password: ""
+        });
+        props.onClose();
+    }
 
 	if(!props.show) return null;
 	else return (
@@ -72,14 +89,14 @@ function Modal(props){
                         <label for="password" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Password</label>
                         <input id="password" value={employeeInfo.password} onChange={handleChange} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="*********" />
                         <div className="flex items-center justify-start w-full">
-                            <button onClick={()=>{ console.log(employeeInfo);props.onSubmit(employeeInfo)}}  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">
+                            <button onClick={handleSubmit}  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">
 								Submit
 							</button>
-                            <button onClick={props.onClose} className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm">
+                            <button onClick={handleClose} className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm">
 								Close
 							</button>
                         </div>
-                        <button onClick={props.onClose} className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" aria-label="close modal" role="button">
+                        <button onClick={handleClose} className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" aria-label="close modal" role="button">
                             <svg  xmlns="http://www.w3.org/2000/svg"  className="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
                                 <line x1="18" y1="6" x2="6" y2="18" />
