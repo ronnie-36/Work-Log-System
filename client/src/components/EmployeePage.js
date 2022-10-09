@@ -3,13 +3,14 @@ import AddTaskModal from "./AddTaskModal";
 
 function EmployeePage(){
 	const [showModal, setShowModal]=useState(false);
-	const [listOfTasks, setListOfTasks]=useState([]);
-	
-	function updateTaskList(currTask){
-		setListOfTasks([...listOfTasks,currTask]);
-	}
 
-	useEffect(()=>{},[listOfTasks]);
+	// const [listOfTasks, setListOfTasks]=useState([]);
+	
+	// function updateTaskList(currTask){
+	// 	setListOfTasks([...listOfTasks,currTask]);
+	// }
+
+	// useEffect(()=>{},[listOfTasks]);
 
 	return (
 		<div>
@@ -38,7 +39,7 @@ function EmployeePage(){
 						<AddTaskModal 
 							show={showModal} 
 							onClose={() => setShowModal(false)} 
-							onSubmit={updateTaskList}
+							// onSubmit={updateTaskList}
 						/>
 					</div>
 					<div>
