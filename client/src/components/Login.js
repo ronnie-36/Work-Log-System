@@ -1,6 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-function Login(){
+function Login(props){
+	function handleSubmit(event){
+		event.preventDefault();
+		props.UserInfo([event.target.elements[0].value,event.target.elements[1].value])		
+	}
+
 	return (
 		// Container 
 		<div className="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
@@ -14,20 +19,20 @@ function Login(){
 						<small className="text-gray-400">Please enter your details</small>
 					</div>
 					{/* Form  */}
-					<form className="mt-4 py-6">
+					<form onSubmit={handleSubmit} className="mt-4 py-6">
 						{/* Email */}
 						<div className="mb-3">
-							<label className="mb-2 block text-s font-semibold">Username</label>
-							<input type="email" placeholder="Enter your username" className="block w-72 rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+							<label id="username" className="mb-2 block text-s font-semibold">Username</label>
+							<input id="username" type="email" placeholder="Enter your username" className="block w-72 rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
 						</div>
 						{/* Password */}
 						<div className="mb-3">
-							<label className="mb-2 block text-s font-semibold">Password</label>
-							<input type="password" placeholder="********" className="block w-72 rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+							<label id="password" className="mb-2 block text-s font-semibold">Password</label>
+							<input id="password" type="password" placeholder="********" className="block w-72 rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
 						</div>
 						{/* Signin button */}
 						<div className="mb-3">
-							<button className="mt-12 mb-1.5 block w-full text-center text-white bg-purple-700 hover:bg-purple-900 px-2 py-1.5 rounded-md">Sign in</button>
+							<button type="submit" className="mt-12 mb-1.5 block w-full text-center text-white bg-purple-700 hover:bg-purple-900 px-2 py-1.5 rounded-md">Sign in</button>
 						</div>
 					</form>
 				</div>				
