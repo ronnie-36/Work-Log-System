@@ -6,9 +6,11 @@ import { jwtLogin } from './services/jwtStrategy.js';
 import { passportLogin } from './services/localStrategy.js';
 
 import routes from './routes/index.js';
+// import cors from 'cors';
 
 const app = express();
 
+// app.use(cors);
 // Bodyparser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
