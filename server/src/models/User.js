@@ -84,9 +84,30 @@ userSchema.methods.registerUser = (newUser, callback) => {
       if (err) {
         console.log(err);
       }
-      // set pasword to hash
+      // set password to hash
       newUser.password = hash;
       newUser.save(callback);
+    });
+  });
+};
+
+userSchema.methods.updateProfile = function (userData, callback) {
+  this.name = userData.name;
+  this.contact = userData.contact;
+  this.department = userData.department;
+  this.joiningDate = userData.joiningDate;
+  this.save(callback);
+};
+
+userSchema.methods.updatePassword = function (password, callback) {
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) {
+        console.log(err);
+      }
+      // set password to hash
+      this.password = hash;
+      this.save(callback);
     });
   });
 };
@@ -129,7 +150,7 @@ export const validateUser = (user) => {
     password: Joi.string().min(6).max(20).allow('').allow(null),
   };
 
-  return Joi.validate(user, schema);
+  return schema.validate(user);
 };
 
 const User = mongoose.model('User', userSchema);

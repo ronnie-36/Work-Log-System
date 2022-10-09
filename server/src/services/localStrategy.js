@@ -13,7 +13,7 @@ const passportLogin = new PassportLocalStrategy(
     passReqToCallback: true,
   },
   async (req, email, password, done) => {
-    const { error } = Joi.validate(req.body, loginSchema);
+    const { error } = loginSchema.validate(req.body);
     if (error) {
       return done(null, false, { message: error.details[0].message });
     }
