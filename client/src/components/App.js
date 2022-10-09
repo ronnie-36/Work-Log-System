@@ -6,9 +6,9 @@ import EmployeePage from './EmployeePage';
 const  App=()=>{
 	return (
 		<div>
-			{/* <Login /> */}
+			<Login />
 			{/* <AdminPage /> */}
-			<EmployeePage />
+			{/* <EmployeePage /> */}
 		</div>
 	)
 }

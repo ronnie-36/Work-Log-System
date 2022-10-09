@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function EmployeeList(props){
 	const {listOfEmployees}=props;
@@ -26,6 +26,7 @@ function EmployeeList(props){
 
 							<tbody className="bg-white">							
 								{listOfEmployees.map((item) => {
+									if(item!=null)
 									return(
 										<tr>
 											<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">

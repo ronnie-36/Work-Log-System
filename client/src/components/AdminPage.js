@@ -1,16 +1,79 @@
 import React, {useEffect, useState} from "react"; 
 import AddEmployeeModal from "./AddEmployeeModal";
+import axios from 'axios';
 import EmployeeList from "./EmployeeList";
+
 
 function AdminPage(){
 	const [showModal, setShowModal] = useState(false);
 	const [listOfEmployees, setListOfEmployees] = useState([]);
-
-	function updateEmployeeList(currEmployee){
-		setListOfEmployees([...listOfEmployees,currEmployee]);
+	const getEmployees=async()=>{
+		const config={
+			headers: {
+					  "Access-Control-Allow-Origin": "*",
+					  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+					  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
+					}
+		}
+		try {
+			const res=await axios.get('http://localhost:5000/api/users',config);
+			if(res.data)
+			{
+				const data=res.data;
+				//console.log(data.users)
+				setListOfEmployees(data.users);
+			}
+			else
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	useEffect(()=>{},[listOfEmployees]);
+	const updateEmployeeList= async(currEmployee)=>{
+		try{
+			const config = {
+			headers: {
+			  "Access-Control-Allow-Origin": "*",
+			  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+			  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
+			}
+		  };
+			const res=await axios.post('http://localhost:5000/api/users/add',{...currEmployee},config);
+			if(res.data)
+			{
+				console.log('Success');
+				getEmployees();
+			}
+			else
+		console.log(res);}
+		catch(e){
+			console.log(e);
+		}
+		getEmployees();
+	}
+	const deactivateEmployee= async(eid)=>{
+		try{
+			const config = {
+			headers: {
+			  "Access-Control-Allow-Origin": "*",
+			  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+			  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
+			}
+		  };
+			const res=await axios.post('http://localhost:5000/api/users/add',{employeeId:eid},config);
+			if(res.data)
+			{
+				console.log('Success');
+			}
+			else
+		console.log(res);}
+		catch(e){
+			console.log(e);
+		}
+		getEmployees();
+	}
+	useEffect(()=>{getEmployees()},[listOfEmployees]);
 
 	return (
 		<div>
