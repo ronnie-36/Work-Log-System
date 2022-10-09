@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/add', requireJwtAuth, async (req, res, next) => {
   if (req.user.role != 'admin')
-    return res.status(400).json({ message: 'You do not have privilegies to add employee.' });
+    return res.status(400).json({ message: 'You do not have privileges to add employee.' });
 
   const { error } = Joi.validate(req.body, registerSchema);
   if (error) {
@@ -54,7 +54,7 @@ router.get('/me', requireJwtAuth, (req, res) => {
 router.get('/', requireJwtAuth, async (req, res) => {
   try {
     if (req.user.role != 'admin')
-      return res.status(400).json({ message: 'You do not have privilegies to fetch employees.' });
+      return res.status(400).json({ message: 'You do not have privileges to fetch employees.' });
     const users = await User.find().sort({ createdAt: 'desc' });
 
     res.json({
