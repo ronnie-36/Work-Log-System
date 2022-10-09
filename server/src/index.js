@@ -1,16 +1,16 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from "cors";
 import "dotenv/config";
 import passport from 'passport';
 import { jwtLogin } from './services/jwtStrategy.js';
 import { passportLogin } from './services/localStrategy.js';
 
 import routes from './routes/index.js';
-import cors from 'cors';
+
 
 const app = express();
 
-// app.use(cors);
 let corsOptions = {
   origin: `${process.env.FRONTEND_URL}`,
   optionsSuccessStatus: 200,

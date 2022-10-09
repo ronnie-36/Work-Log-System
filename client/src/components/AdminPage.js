@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from "react"; 
 import AddEmployeeModal from "./AddEmployeeModal";
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import EmployeeList from "./EmployeeList";
 
 
 function AdminPage(){
+	const navigate = useNavigate();
 	const [showModal, setShowModal] = useState(false);
 	const [listOfEmployees, setListOfEmployees] = useState([]);
 	const getEmployees=async()=>{
 		const config={
 			headers: {
-					  "Access-Control-Allow-Origin": "*",
-					  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-					  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
-					}
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+				"X-AUTH-TOKEN":localStorage.getItem("token")
+			  }
 		}
 		try {
 			const res=await axios.get('http://localhost:5000/api/users',config);
@@ -33,11 +35,11 @@ function AdminPage(){
 	const updateEmployeeList= async(currEmployee)=>{
 		try{
 			const config = {
-			headers: {
-			  "Access-Control-Allow-Origin": "*",
-			  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-			  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
-			}
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+					"X-AUTH-TOKEN":localStorage.getItem("token")
+				  }
 		  };
 			const res=await axios.post('http://localhost:5000/api/users/add',{...currEmployee},config);
 			if(res.data)
@@ -58,7 +60,7 @@ function AdminPage(){
 			headers: {
 			  "Access-Control-Allow-Origin": "*",
 			  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-			  "X-AUTH-TOKEN":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOiIxMmgiLCJpZCI6IjYzNDE4OGY3YTA1MTQyMjRhYmMzNmQ4NyIsInR5cGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjY1MzM5MDkxfQ.n_wEp0H9phVgwF1OnBqgTgCHJIbdbZ-Tc-Sm-jOrKtg"
+			  "X-AUTH-TOKEN":localStorage.getItem("token")
 			}
 		  };
 			const res=await axios.post('http://localhost:5000/api/users/add',{employeeId:eid},config);
@@ -73,7 +75,17 @@ function AdminPage(){
 		}
 		getEmployees();
 	}
-	useEffect(()=>{getEmployees()},[listOfEmployees]);
+	const logOut=()=>{
+		localStorage.removeItem("role");
+		localStorage.removeItem("token");
+		navigate("/");
+	}
+	useEffect(()=>{
+		if(!localStorage.getItem("token"))
+		{
+		navigate("/");
+	  	}
+	  getEmployees()},[listOfEmployees]);
 
 	return (
 		<div>
@@ -88,7 +100,7 @@ function AdminPage(){
 						{/* <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">temp</a> */}
 					</div>
 					<div>
-						<a href="./App.js" className="inline-block text-sm font-bold px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
+						<button className="inline-block text-sm font-bold px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0" onClick={logOut}>Logout</button>
 					</div>
 				</div>
 			</nav>

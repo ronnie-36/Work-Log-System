@@ -1,8 +1,9 @@
-import React, {useEffect, useState , PureComponent } from "react"; 
+import React, {useEffect, useState  } from "react";
+import {useNavigate} from 'react-router-dom'; 
 import AddTaskModal from "./AddTaskModal";
 import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 		
-const data01 = [
+const data = [
 	{ name: 'Group A', value: 400 },
 	{ name: 'Group B', value: 300 },
 	{ name: 'Group C', value: 300 },
@@ -20,58 +21,26 @@ const data01 = [
 	{ name: 'Group F', value: 4800 },
   ];
 function EmployeePage(){
+	const navigate=useNavigate();
 	const [showModal, setShowModal]=useState(false);
 	const [listOfTasks, setListOfTasks]=useState([]);
-	const [data,setData]=useState([
-		  {
-			name: 'Page A',
-			uv: 4000,
-			pv: 2400,
-			amt: 2400,
-		  },
-		  {
-			name: 'Page B',
-			uv: 3000,
-			pv: 1398,
-			amt: 2210,
-		  },
-		  {
-			name: 'Page C',
-			uv: 2000,
-			pv: 9800,
-			amt: 2290,
-		  },
-		  {
-			name: 'Page D',
-			uv: 2780,
-			pv: 3908,
-			amt: 2000,
-		  },
-		  {
-			name: 'Page E',
-			uv: 1890,
-			pv: 4800,
-			amt: 2181,
-		  },
-		  {
-			name: 'Page F',
-			uv: 2390,
-			pv: 3800,
-			amt: 2500,
-		  },
-		  {
-			name: 'Page G',
-			uv: 3490,
-			pv: 4300,
-			amt: 2100,
-		  }
-		])
-
+	
 	function updateTaskList(currTask){
 		setListOfTasks([...listOfTasks,currTask]);
 	}
+	const logOut=()=>{
+		localStorage.removeItem("role");
+		localStorage.removeItem("token");
+		navigate("/");
+	}
+	useEffect(()=>{
+		if(!localStorage.getItem("token"))
+		{
+		navigate("/");
+	  	}
+	 },[]);
 
-	useEffect(()=>{},[listOfTasks]);
+	// useEffect(()=>{},[listOfTasks]);
 
 	return (
 		<div>
@@ -86,7 +55,7 @@ function EmployeePage(){
 						{/* <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">temp</a> */}
 					</div>
 					<div>
-						<a href="./App.js" className="inline-block text-sm font-bold px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
+						<button className="hover:cursor-pointer inline-block text-sm font-bold px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 " onClick={logOut}>Logout</button>
 					</div>
 				</div>
 			</nav>
@@ -100,7 +69,7 @@ function EmployeePage(){
 						<AddTaskModal 
 							show={showModal} 
 							onClose={() => setShowModal(false)} 
-							onSubmit={updateTaskList}
+							// onSubmit={updateTaskList}
 						/>
 					</div>
 					<div>

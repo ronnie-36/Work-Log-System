@@ -11,6 +11,7 @@ function AddEmployeeModal(props){
     }); 
 
     function handleChange(event){
+        console.log(event.target.elements);
         switch(event.target.id){
             case "name":
                 setEmployeeInfo(             
