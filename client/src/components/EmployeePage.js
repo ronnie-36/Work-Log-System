@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import AddTaskModal from "./AddTaskModal";
 import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';		
+import DisplayPieChart from "./DisplayPieChart";
 
 const EmployeePage=()=>{
 	const navigate=useNavigate();
@@ -48,8 +49,7 @@ const EmployeePage=()=>{
 			if(res.data)
 			{
 				console.log(res.data);
-				getTasks(new Date());
-				
+				getTasks(new Date());				
 			}
 			else
 		console.log(res);}
@@ -103,8 +103,8 @@ const EmployeePage=()=>{
 						/>
 					</div>
 					<div>
-					
-						<PieChart width={600} height={400}>
+						<DisplayPieChart />
+						{/* <PieChart width={600} height={400}>
 						<Pie
 							dataKey="duration"
 							nameKey={"taskType"}
@@ -128,10 +128,10 @@ const EmployeePage=()=>{
 						/>
 						<Tooltip/>
 						</PieChart>
-						<ResponsiveContainer width="100%" height={400}>
 
+						<ResponsiveContainer width="100%" height={400}>
 						<BarChart width={600} height={40} data={listOfTasks}>
-						<XAxis dataKey="taskType" />
+							<XAxis dataKey="taskType" />
 							<YAxis />
 							<Tooltip />
 							<Legend />
@@ -141,7 +141,7 @@ const EmployeePage=()=>{
 							))}
 							</Bar>
 						</BarChart>
-						</ResponsiveContainer>
+						</ResponsiveContainer> */}
 					</div>
 				</div>
             </div>

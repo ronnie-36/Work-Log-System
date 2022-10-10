@@ -48,7 +48,8 @@ function AdminPage(){
 				getEmployees();
 			}
 			else
-		console.log(res);}
+			console.log(res);
+		}
 		catch(e){
 			console.log(e);
 		}
@@ -69,7 +70,8 @@ function AdminPage(){
 				console.log('Success');
 			}
 			else
-		console.log(res);}
+			console.log(res);
+		}
 		catch(e){
 			console.log(e);
 		}

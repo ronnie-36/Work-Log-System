@@ -49,7 +49,7 @@ function AddTaskModal(props){
         props.onSubmit(taskInfo); 
         setTaskInfo({
             description: "",
-			type: "",
+			taskType: "",
 			startTime: "",
 			totalTime:  ""
         });
