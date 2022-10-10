@@ -6,12 +6,15 @@ function Login(props){
 	useEffect(()=>{
 	
 			//console.log(localStorage.getItem("token"))
+			if(localStorage.getItem("token"))
+			{
 			if(localStorage.getItem("role")==="admin")
 		{
 			navigate("/admin")
 		}
 		else if(localStorage.getItem("role")==="employee")
 		navigate("/employee")
+	}
 	
 	},)
 	const login=async(data)=>{

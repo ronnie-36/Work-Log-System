@@ -49,7 +49,7 @@ function AddTaskModal(props){
         props.onSubmit(taskInfo); 
         setTaskInfo({
             description: "",
-			taskType: "",
+			taskType: "break",
 			startTime: "",
 			totalTime:  ""
         });

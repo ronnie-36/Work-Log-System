@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Chart } from 'react-google-charts';
 
 
@@ -17,18 +17,8 @@ export const data = [
   };
 
 function DisplayPieChart(){
-	// return (
-	// 	<Chart
-	// 	  chartType="PieChart"
-	// 	  data={data}
-	// 	  options={options}
-	// 	  width={"500px"}
-	// 	  height={"1000px"}
-	// 	/>
-	//   );
-
 	return (
-		<div class="grid grid-rows-1">
+		<div class="flex">
 			<div>
 				<Chart
 					chartType="PieChart"

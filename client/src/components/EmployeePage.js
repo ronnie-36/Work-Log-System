@@ -104,43 +104,44 @@ const EmployeePage=()=>{
 					</div>
 					<div>
 						<DisplayPieChart />
+						
 						{/* <PieChart width={600} height={400}>
-						<Pie
-							dataKey="duration"
-							nameKey={"taskType"}
-							isAnimationActive={true}
-							data={listOfTasks}
-							cx="40%"
-							cy="50%"
-							outerRadius={80}
-							fill="#8884d8"
-							label
-						/>
-						<Pie
-							dataKey="duration"
-							nameKey={"taskType"}
-							isAnimationActive={true}
-							data={listOfTasks}
-							cx={500} cy={200}
-							outerRadius={80}
-							fill="#8884d8"
-							label
-						/>
-						<Tooltip/>
-						</PieChart>
+							<Pie
+								dataKey="duration"
+								nameKey={"taskType"}
+								isAnimationActive={true}
+								data={listOfTasks}
+								cx="40%"
+								cy="50%"
+								outerRadius={80}
+								fill="#8884d8"
+								label
+							/>
+							<Pie
+								dataKey="duration"
+								nameKey={"taskType"}
+								isAnimationActive={true}
+								data={listOfTasks}
+								cx={500} cy={200}
+								outerRadius={80}
+								fill="#8884d8"
+								label
+							/>
+							<Tooltip/>
+							</PieChart>
 
-						<ResponsiveContainer width="100%" height={400}>
-						<BarChart width={600} height={40} data={listOfTasks}>
-							<XAxis dataKey="taskType" />
-							<YAxis />
-							<Tooltip />
-							<Legend />
-							<Bar dataKey="">
-							{listOfTasks.map((entry, index) => (
-								<Cell cursor="pointer" fill={ '#8884d8'} key={`cell-${index}`} />
-							))}
-							</Bar>
-						</BarChart>
+							<ResponsiveContainer width="100%" height={400}>
+							<BarChart width={600} height={40} data={listOfTasks}>
+								<XAxis dataKey="taskType" />
+								<YAxis />
+								<Tooltip />
+								<Legend />
+								<Bar dataKey="">
+								{listOfTasks.map((entry, index) => (
+									<Cell cursor="pointer" fill={ '#8884d8'} key={`cell-${index}`} />
+								))}
+								</Bar>
+							</BarChart>
 						</ResponsiveContainer> */}
 					</div>
 				</div>

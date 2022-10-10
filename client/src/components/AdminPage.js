@@ -9,6 +9,7 @@ function AdminPage(){
 	const navigate = useNavigate();
 	const [showModal, setShowModal] = useState(false);
 	const [listOfEmployees, setListOfEmployees] = useState([]);
+	const [employee,setId]=useState({name:'default',employeeId:'default'});
 	const getEmployees=async()=>{
 		const config={
 			headers: {
@@ -118,9 +119,10 @@ function AdminPage(){
 							onClose={() => setShowModal(false)} 
 							onSubmit={updateEmployeeList}
 						/>
+						
 					</div>
 					<div>
-						<EmployeeList listOfEmployees={listOfEmployees}/>						
+						<EmployeeList listOfEmployees={listOfEmployees} employee={employee} setId={setId}/>						
 					</div>
 				</div>
             </div>
