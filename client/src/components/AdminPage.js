@@ -19,7 +19,8 @@ function AdminPage(){
 			  }
 		}
 		try {
-			const res=await axios.get('http://localhost:5000/api/users',config);
+			const url=process.env.REACT_APP_SERVER_URL+ "api/users";
+			const res=await axios.get(url,config);
 			if(res.data)
 			{
 				const data=res.data;
@@ -42,7 +43,8 @@ function AdminPage(){
 					"X-AUTH-TOKEN":localStorage.getItem("token")
 				  }
 		  };
-			const res=await axios.post('http://localhost:5000/api/users/add',{...currEmployee},config);
+		  const url=process.env.REACT_APP_SERVER_URL+ "api/users/add";
+			const res=await axios.post(url,{...currEmployee},config);
 			if(res.data)
 			{
 				console.log('Success');
@@ -65,7 +67,8 @@ function AdminPage(){
 			  "X-AUTH-TOKEN":localStorage.getItem("token")
 			}
 		  };
-			const res=await axios.post('http://localhost:5000/api/users/add',{employeeId:eid},config);
+		  const url=process.env.REACT_APP_SERVER_URL+ "api/users/deactivate";
+			const res=await axios.post(url,{employeeId:eid},config);
 			if(res.data)
 			{
 				console.log('Success');
@@ -122,7 +125,7 @@ function AdminPage(){
 						
 					</div>
 					<div>
-						<EmployeeList listOfEmployees={listOfEmployees} employee={employee} setId={setId}/>						
+						<EmployeeList listOfEmployees={listOfEmployees} employee={employee} setId={setId} deactivateEmployee={deactivateEmployee}/>						
 					</div>
 				</div>
             </div>

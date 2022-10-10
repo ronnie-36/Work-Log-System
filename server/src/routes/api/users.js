@@ -98,7 +98,7 @@ router.put('/update/password', requireJwtAuth, async (req, res, next) => {
   }
 });
 
-router.get('/deactivate', requireJwtAuth, async (req, res) => {
+router.post('/deactivate', requireJwtAuth, async (req, res) => {
   try {
     if (req.user.role != 'admin')
       return res.status(400).json({ message: 'You do not have privileges to deactivate employees.' });

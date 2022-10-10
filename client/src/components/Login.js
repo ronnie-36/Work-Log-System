@@ -26,7 +26,8 @@ function Login(props){
 		}
 		try{
 			//console.log(`${process.env.SERVER_URL_DEV}`);
-			const res=await axios.post(`http://localhost:5000/auth/login`,{...data},config);
+			const url=process.env.REACT_APP_SERVER_URL+ "auth/login";
+			const res=await axios.post(url,{...data},config);
 			if(res.data)
 			{
 				let token = res.data.token;

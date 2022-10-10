@@ -25,12 +25,13 @@ const EmployeePage=()=>{
 				  },
 				  
 		  };
-			const res=await axios.post('http://localhost:5000/api/tasks',{date:date},config);
+		  const url=process.env.REACT_APP_SERVER_URL+ "api/tasks";
+			const res=await axios.post(url,{date:date},config);
 			if(res.data)
 			{
 				console.log(res.data);
 				const data=res.data;
-				setListOfTasks(data);
+				setTaskData(data);
 			}
 			else
 		console.log(res);}
@@ -49,7 +50,8 @@ const EmployeePage=()=>{
 				  }
 				
 		  };
-			const res=await axios.post('http://localhost:5000/api/tasks/add',{...currTask},config);
+		  const url=process.env.REACT_APP_SERVER_URL+ "tasks/add";
+			const res=await axios.post(url,{...currTask},config);
 			if(res.data)
 			{
 				console.log(res.data);
@@ -107,8 +109,8 @@ const EmployeePage=()=>{
 						/>
 					</div>
 					<div>
-						<DisplayPieChart data={listOfTasks}/>
-						<DisplayBarChart />
+						<DisplayPieChart data={taskData} width={500} height={500}/>
+						<DisplayBarChart data={taskData.weekTasks} width={1000} height={300}/>
 
 						{/* <PieChart width={600} height={400}>
 							<Pie

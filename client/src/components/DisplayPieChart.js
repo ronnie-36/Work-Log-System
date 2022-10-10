@@ -1,44 +1,85 @@
 import React from "react";
-import { Chart } from 'react-google-charts';
+import { Chart } from 'react-google-charts'; 
 
 
-export const data = [
-	["Task", "Hours per Day"],
-	["Work", 11],
-	["Eat", 2],
-	["Commute", 2],
-	["Watch TV", 2],
-	["Sleep", 7],
-  ];
-  
-  export const options = {
-	title: "My Daily Activities",
-  };
-
-function DisplayPieChart(props){
-	const taskData = props.data;
-	console.log(taskData);
+function DisplayPieChart({data,width,height}){
+	const {weekTasks, prevDayTasks, currDayTasks} = data;
+	console.log(weekTasks);
+	console.log(prevDayTasks);
+	console.log(currDayTasks);
 	
+	var currDay={
+		breakTime : 0,
+		workTime : 0,
+		meetingTime : 0
+	}
+
+	var prevDay={
+		breakTime : 0,
+		workTime : 0,
+		meetingTime : 0
+	}	
 	
+	currDayTasks.forEach(task => {
+		// console.log(element);
+		if(task.taskType==="break") currDay.breakTime+=task.duration;
+		else if(task.taskType==="work") currDay.workTime+=task.duration;
+		else if(task.taskType==="meeting") currDay.meetingTime+=task.duration;
+	});
+
+	prevDayTasks.forEach(task => {
+		// console.log(element);
+		if(task.taskType==="break") prevDay.breakTime+=task.duration;
+		else if(task.taskType==="work") prevDay.workTime+=task.duration;
+		else if(task.taskType==="meeting") prevDay.meetingTime+=task.duration;
+	});
+
+	const currDayData = [
+		["Task", "Minutes taken"],
+		["Break", currDay.breakTime],
+		["Work", currDay.workTime],
+		["Meeting", currDay.meetingTime]
+	];
+	
+	const prevDayData = [
+		["Task", "Minutes taken"],
+		["Break", prevDay.breakTime],
+		["Work", prevDay.workTime],
+		["Meeting", prevDay.meetingTime]
+	];
+
+	const date = new Date();
+	const currDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+	// console.log(currDate);
+	date.setDate(date.getDate()-1);
+	const prevDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+
+	const currDateTitle = {
+		title: currDate,
+	};
+
+	const prevDateTitle = {
+		title: prevDate,
+	};
 
 	return (
 		<div class="flex">
 			<div>
 				<Chart
 					chartType="PieChart"
-					data={data}
-					options={options}
-					width={"500px"}
-					height={"500px"}
+					data={prevDayData}
+					options={prevDateTitle}
+					width={`${width}px`}
+					height={`${height}px`}
 				/>
 			</div>
 			<div>
 				<Chart
 					chartType="PieChart"
-					data={data}
-					options={options}
-					width={"500px"}
-					height={"500px"}
+					data={currDayData}
+					options={currDateTitle}
+					width={`${width}px`}
+					height={`${height}px`}
 				/>
 			</div>
 		</div>
