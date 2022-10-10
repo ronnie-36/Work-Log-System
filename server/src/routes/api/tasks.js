@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import requireJwtAuth from '../../middleware/requireJwtAuth.js';
 import User from '../../models/User.js';
-import { startOfWeek, endOfWeek } from 'date-fns'
+import { startOfWeek, endOfWeek, isSameDay } from 'date-fns'
 
 const router = Router();
 
@@ -45,14 +45,24 @@ router.post('/', requireJwtAuth, async (req, res) => {
         date = new Date(date);
         const weekStart = startOfWeek(date, { weekStartsOn: 1 });
         const weekEnd = endOfWeek(date, { weekStartsOn: 1 });
+        var dateBefore = new Date(date.getTime());
+        dateBefore.setDate(date.getDate() - 1);
         const user = await User.findById(employeeId);
         const tasks = user.tasks;
-        console.log(tasks);
-        let filteredTasks = tasks.filter((task) =>
-            new Date(task.startTime).getTime() >= new Date(weekStart).getTime()
-            && new Date(task.startTime).getTime() <= new Date(weekEnd).getTime()
-        );
-        return res.json(filteredTasks);
+        let weekTasks = [], prevDayTasks = [], currDayTasks = [];
+        tasks.forEach((task) => {
+            if (new Date(task.startTime).getTime() >= new Date(weekStart).getTime()
+                && new Date(task.startTime).getTime() <= new Date(weekEnd).getTime()) {
+                weekTasks.push(task);
+            }
+            if (isSameDay(new Date(task.startTime), dateBefore)) {
+                prevDayTasks.push(task);
+            }
+            if (isSameDay(new Date(task.startTime), date)) {
+                currDayTasks.push(task);
+            }
+        });
+        return res.json({ weekTasks, prevDayTasks, currDayTasks });
     } catch (err) {
         res.status(500).json({ message: 'Something went wrong.' });
     }
