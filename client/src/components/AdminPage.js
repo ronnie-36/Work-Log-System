@@ -23,7 +23,7 @@ function AdminPage(){
 			const res=await axios.get(url,config).catch((err) => {
 				window.alert(err.response.data.message);
 			});
-			console.log(res);
+			// console.log(res);
 
 			if(res.data)
 			{
@@ -31,8 +31,8 @@ function AdminPage(){
 				//console.log(data.users)
 				setListOfEmployees(data.users);
 			}
-			else
-			console.log(res);
+			// else
+			// console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,11 +53,11 @@ function AdminPage(){
 			});
 			if(res.data)
 			{
-				console.log('Success');
+				// console.log('Success');
 				getEmployees();
 			}
-			else
-			console.log(res);
+			// else
+			// console.log(res);
 		}
 		catch(e){
 			console.log(e);
@@ -77,12 +77,12 @@ function AdminPage(){
 			const res=await axios.post(url,{employeeId:eid},config).catch((err) => {
 				window.alert(err.response.data.message);
 			});
-			if(res.data)
-			{
-				console.log('Success');
-			}
-			else
-			console.log(res);
+			// if(res.data)
+			// {
+			// 	console.log('Success');
+			// }
+			// else
+			// console.log(res);
 		}
 		catch(e){
 			console.log(e);

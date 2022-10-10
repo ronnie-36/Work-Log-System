@@ -45,7 +45,7 @@ function AddTaskModal(props){
 	}
 
 	function handleSubmit(){
-		console.log(taskInfo); 
+		// console.log(taskInfo); 
         props.onSubmit(taskInfo); 
         setTaskInfo({
             description: "",

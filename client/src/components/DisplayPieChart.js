@@ -2,11 +2,11 @@ import React from "react";
 import { Chart } from 'react-google-charts'; 
 
 
-function DisplayPieChart({data,width,height}){
+function DisplayPieChart({givenDate,data,width,height}){
 	const {weekTasks, prevDayTasks, currDayTasks} = data;
-	console.log(weekTasks);
-	console.log(prevDayTasks);
-	console.log(currDayTasks);
+	// console.log(weekTasks);
+	// console.log(prevDayTasks);
+	// console.log(currDayTasks);
 	
 	var currDay={
 		breakTime : 0,
@@ -48,11 +48,11 @@ function DisplayPieChart({data,width,height}){
 		["Meeting", prevDay.meetingTime]
 	];
 
-	const date = new Date();
-	const currDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+	const date = new Date(givenDate);
+	const currDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 	// console.log(currDate);
 	date.setDate(date.getDate()-1);
-	const prevDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+	const prevDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 
 	const currDateTitle = {
 		title: currDate,

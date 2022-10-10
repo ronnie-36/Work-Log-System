@@ -11,6 +11,7 @@ const ViewTaskModal=({employee,onClose,show})=>{
     const{employeeId,name}=employee;
     const [date,setDate]=useState()
 	function handleChange(event){
+		// console.log(event.target.value);
         setDate(event.target.value);
         getTasks();
     }
@@ -26,18 +27,16 @@ const ViewTaskModal=({employee,onClose,show})=>{
 				  
 		  };
 		  const url=process.env.REACT_APP_SERVER_URL+ "api/tasks";
-		  console.log(url);
 			const res=await axios.post(url,{date:date,employeeId:employeeId},config).catch((err) => {
 				window.alert(err.response.data.message);
 			});
 			if(res.data)
 			{
-				console.log(res.data);
+				// console.log(res.data);
 				const data=res.data;
 				setListOfTasks(data);
 			}
-			else
-		console.log(res);}
+		}
 		catch(e){
 			console.log(e);
 		}
@@ -75,9 +74,9 @@ useEffect(()=>
                         </button>
                         {date && <Fragment>
                         {listOfTasks.weekTasks.length>0 ? <div className=''>
-							<DisplayPieChart data={listOfTasks} width={350} height={350}/>
+							<DisplayPieChart data={listOfTasks} givenDate={date} width={350} height={350}/>
 						<div className='mx-auto'>
-						<DisplayBarChart data={listOfTasks.weekTasks} width={700} height={200}/>
+						<DisplayBarChart data={listOfTasks.weekTasks} givenDate={date} width={900} height={200}/>
 						</div>
                         </div> : <div classanme='text-center font-semibold'>
                             <h1>No Tasks this week</h1>

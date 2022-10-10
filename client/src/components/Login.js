@@ -50,8 +50,8 @@ function Login(props){
 			// navigate("/employee")
 
 			}
-			else
-			console.log(res);
+			// else
+			// console.log(res);
 		}
 		catch(e){
 			console.log(e);
@@ -62,7 +62,7 @@ function Login(props){
 		const data={email:event.target.elements[0].value, password:event.target.elements[1].value}
 		// console.log(event.target.elements[0].value);
 		// console.log(event.target.elements[1].value);
-		console.log(data);
+		// console.log(data);
 		// props.UserInfo([event.target.elements[0].value,event.target.elements[1].value])		
 		login(data);
 	}

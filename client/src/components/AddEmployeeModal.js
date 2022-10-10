@@ -11,7 +11,7 @@ function AddEmployeeModal(props){
     }); 
 
     function handleChange(event){
-        console.log(event.target.elements);
+        // console.log(event.target.elements);
         switch(event.target.id){
             case "name":
                 setEmployeeInfo(             
@@ -60,7 +60,7 @@ function AddEmployeeModal(props){
     }
 
     function handleSubmit(){
-        console.log(employeeInfo); 
+        // console.log(employeeInfo); 
         props.onSubmit(employeeInfo); 
         setEmployeeInfo({
             name: "",

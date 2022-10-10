@@ -31,18 +31,17 @@ const EmployeePage=()=>{
 			});
 			if(res.data)
 			{
-				console.log(res.data);
+				// console.log(res.data);
 				const data=res.data;
 				setTaskData(data);
 			}
-			else
-		console.log(res);}
-		catch(e){
-			console.log(e);
-		}
+			}
+			catch(e){
+				console.log(e);
+			}
 	}
 	const updateTaskList=async(currTask)=>{
-		console.log(currTask);
+		// console.log(currTask);
 		try{
 			const config = {
 				headers: {
@@ -58,11 +57,10 @@ const EmployeePage=()=>{
 			});
 			if(res.data)
 			{
-				console.log(res.data);
+				// console.log(res.data);
 				getTasks(new Date());				
 			}
-			else
-		console.log(res);}
+			}
 		catch(e){
 			console.log(e);
 		}
@@ -112,8 +110,8 @@ const EmployeePage=()=>{
 						/>
 					</div>
 					<div>
-						<DisplayPieChart data={taskData} width={500} height={500}/>
-						<DisplayBarChart data={taskData.weekTasks} width={1000} height={300}/>
+						<DisplayPieChart givenDate={new Date()} data={taskData} width={500} height={500}/>
+						<DisplayBarChart givenDate={new Date()} data={ taskData.weekTasks} width={1000} height={300}/>
 					</div>
 				</div>
             </div>

@@ -3,16 +3,17 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import { startOfWeek, endOfWeek, isSameDay } from 'date-fns'
 
 
-function DisplayBarChart({data,width,height}){
+function DisplayBarChart({givenDate,data,width,height}){
 	const weekTasks = data;
-	console.log(weekTasks);
+	// console.log(weekTasks);
 
-  	const date = new Date();
+  	const date = new Date(givenDate);
+	// console.log(date);
 	const weekStart = startOfWeek(date, { weekStartsOn: 1 });
 	const currDate = weekStart;
 
 	function convertDate(temp){
-		const val=`${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`
+		const val=`${temp.getDate()}/${temp.getMonth()+1}/${temp.getFullYear()}`
 		return val;
 	}
 
@@ -29,15 +30,17 @@ function DisplayBarChart({data,width,height}){
 		};
 		currDate.setDate(currDate.getDate()+1);		
 	}
+	// console.log(weekDates);
 	
 	weekTasks.forEach(task => {		
 		const key = convertDate(new Date(task.startTime));
+		// console.log(key);
 		if(task.taskType==="break") weekDates[key].breakTime+=task.duration;
 		else if(task.taskType==="work") weekDates[key].workTime+=task.duration;
 		else if(task.taskType==="meeting") weekDates[key].meetingTime+=task.duration;
 	});
 
-	console.log(weekDates);
+	// console.log(weekDates);
 
 	const weekData = [];
 
@@ -49,6 +52,8 @@ function DisplayBarChart({data,width,height}){
 			meeting: value.meetingTime
 		})
 	}	
+
+	// console.log(weekData);
 
 	return (
 		<div>
