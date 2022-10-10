@@ -1,15 +1,19 @@
 import React, {useEffect, useState  } from "react";
 import {useNavigate} from 'react-router-dom'; 
 import AddTaskModal from "./AddTaskModal";
-import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';		
 import DisplayPieChart from "./DisplayPieChart";
+import DisplayBarChart from "./DisplayBarChart";
 
 const EmployeePage=()=>{
 	const navigate=useNavigate();
-	const [tasks,setTasks]=useState([]);
 	const [showModal, setShowModal]=useState(false);
 	const [listOfTasks, setListOfTasks]=useState([]);
+	const [taskData, setTaskData]=useState({
+		weekTasks : [],
+		prevDayTasks : [],
+		currDayTasks : []
+	});
 	
 	const getTasks=async(date)=>{
 		try{
@@ -99,12 +103,13 @@ const EmployeePage=()=>{
 						<AddTaskModal 
 							show={showModal} 
 							onClose={() => setShowModal(false)} 
-							 onSubmit={updateTaskList}
+							onSubmit={updateTaskList}
 						/>
 					</div>
 					<div>
-						<DisplayPieChart />
-						
+						<DisplayPieChart data={listOfTasks}/>
+						<DisplayBarChart />
+
 						{/* <PieChart width={600} height={400}>
 							<Pie
 								dataKey="duration"
@@ -149,5 +154,4 @@ const EmployeePage=()=>{
 		</div>
 	);
 }
-
 export default EmployeePage;

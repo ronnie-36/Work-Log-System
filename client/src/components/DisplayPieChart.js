@@ -1,5 +1,4 @@
 import React from "react";
-// import { BarChart, Bar, Cell, XAxis, YAxis, Pie, PieChart, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Chart } from 'react-google-charts';
 
 
@@ -16,7 +15,12 @@ export const data = [
 	title: "My Daily Activities",
   };
 
-function DisplayPieChart(){
+function DisplayPieChart(props){
+	const taskData = props.data;
+	console.log(taskData);
+	
+	
+
 	return (
 		<div class="flex">
 			<div>
