@@ -11,7 +11,9 @@ router.post('/add', requireJwtAuth, async (req, res, next) => {
         return res.status(400).json({ message: 'You can not add tasks (Account deactivated).' });
 
     const { description, taskType, startTime, duration } = req.body;
-
+    if (parseInt(duration) < 1 || parseInt(duration) > 1440 || isNaN(parseInt(duration))) {
+        return res.status(400).json({ message: 'Invalid Task Duration' });
+    }
     const curDateTime = new Date();
     const startDateTime = new Date(startTime);
 
