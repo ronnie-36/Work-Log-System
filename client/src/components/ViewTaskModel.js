@@ -27,7 +27,9 @@ const ViewTaskModal=({employee,onClose,show})=>{
 		  };
 		  const url=process.env.REACT_APP_SERVER_URL+ "api/tasks";
 		  console.log(url);
-			const res=await axios.post(url,{date:date,employeeId:employeeId},config);
+			const res=await axios.post(url,{date:date,employeeId:employeeId},config).catch((err) => {
+				window.alert(err.response.data.message);
+			});
 			if(res.data)
 			{
 				console.log(res.data);

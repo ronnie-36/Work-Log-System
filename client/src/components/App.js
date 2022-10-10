@@ -4,11 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminPage from './AdminPage';
 import EmployeePage from './EmployeePage';
 
-const  App=()=>{
-
-
-	// 
-	
+const  App=()=>{	
 	return (
 		<BrowserRouter>
 		<Routes>

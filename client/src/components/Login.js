@@ -27,7 +27,9 @@ function Login(props){
 		try{
 			//console.log(`${process.env.SERVER_URL_DEV}`);
 			const url=process.env.REACT_APP_SERVER_URL+ "auth/login";
-			const res=await axios.post(url,{...data},config);
+			const res=await axios.post(url,{...data},config).catch((err) => {
+				window.alert(err.response.data.message);
+			});
 			if(res.data)
 			{
 				let token = res.data.token;

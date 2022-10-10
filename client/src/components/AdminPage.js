@@ -20,7 +20,11 @@ function AdminPage(){
 		}
 		try {
 			const url=process.env.REACT_APP_SERVER_URL+ "api/users";
-			const res=await axios.get(url,config);
+			const res=await axios.get(url,config).catch((err) => {
+				window.alert(err.response.data.message);
+			});
+			console.log(res);
+
 			if(res.data)
 			{
 				const data=res.data;
@@ -44,7 +48,9 @@ function AdminPage(){
 				  }
 		  };
 		  const url=process.env.REACT_APP_SERVER_URL+ "api/users/add";
-			const res=await axios.post(url,{...currEmployee},config);
+			const res=await axios.post(url,{...currEmployee},config).catch((err) => {
+				window.alert(err.response.data.message);
+			});
 			if(res.data)
 			{
 				console.log('Success');
@@ -68,7 +74,9 @@ function AdminPage(){
 			}
 		  };
 		  const url=process.env.REACT_APP_SERVER_URL+ "api/users/deactivate";
-			const res=await axios.post(url,{employeeId:eid},config);
+			const res=await axios.post(url,{employeeId:eid},config).catch((err) => {
+				window.alert(err.response.data.message);
+			});
 			if(res.data)
 			{
 				console.log('Success');
@@ -91,7 +99,7 @@ function AdminPage(){
 		{
 		navigate("/");
 	  	}
-	  getEmployees()},[listOfEmployees]);
+	  getEmployees()},[]);
 
 	return (
 		<div>
