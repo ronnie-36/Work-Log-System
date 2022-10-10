@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react';
-
-function EmployeeList(props){
-	const {listOfEmployees}=props;
-
+import React, { Fragment, useEffect,useState } from 'react';
+import ViewTaskModal from './ViewTaskModel';
+function EmployeeList({employee,setId, listOfEmployees}){
+	const [showModal, setShowModal] = useState(false);
+	
 	return (
-		<div>
+		<div >
+			<ViewTaskModal 
+				show={showModal} 
+				onClose={() => setShowModal(false)} 
+				employee={employee}
+			/>
 			<div className="flex flex-col mt-8">
 				<div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
 					<div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
@@ -29,8 +34,12 @@ function EmployeeList(props){
 									if(item!=null)
 									return(
 										<tr>
-											<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-												<div className="text-sm font-medium leading-5 text-gray-900">{item.name}</div>
+											
+											<td  onClick={()=>{
+														setId({employeeId:item.id,
+														name:item.name})
+														setShowModal(true)}}  className="cursor-pointer px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+												<div className="text-sm font-medium leading-5 text-gray-900 ">{item.name}</div>
 											</td>
 
 											<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -40,7 +49,7 @@ function EmployeeList(props){
 											<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
 												<div className="text-sm leading-5 text-gray-500">{item.department}</div>
 											</td>
-
+											
 											<td
 												className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
 												<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
