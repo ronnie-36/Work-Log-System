@@ -4,18 +4,34 @@ import AddTaskModal from "./AddTaskModal";
 import axios from 'axios';		
 import DisplayPieChart from "./DisplayPieChart";
 import DisplayBarChart from "./DisplayBarChart";
+import { startOfWeek } from 'date-fns'
 
 const EmployeePage=()=>{
 	const navigate=useNavigate();
 	const [showModal, setShowModal]=useState(false);
-	const [listOfTasks, setListOfTasks]=useState([]);
+	const [barChartData, setBarChartData]=useState({});
+	const [date,setDate]=useState(new Date());
 	const [taskData, setTaskData]=useState({
 		weekTasks : [],
 		prevDayTasks : [],
 		currDayTasks : []
 	});
+
+	const weekDates={}
+
+	function convertDate(temp){
+		const val=`${temp.getDate()}/${temp.getMonth()+1}/${temp.getFullYear()}`
+		return val;
+	}
 	
-	const getTasks=async(date)=>{
+	function handleChange(event){
+		// console.log(event.target.value);
+		
+		setDate(event.target.value);
+        getTasks(event.target.value);
+	}
+
+	const getTasks=async(givenDate)=>{
 		try{
 			const config = {
 				headers: {
@@ -26,13 +42,22 @@ const EmployeePage=()=>{
 				  
 		  };
 		  const url=process.env.REACT_APP_SERVER_URL+ "api/tasks";
-			const res=await axios.post(url,{date:date},config).catch((err) => {
+			const res=await axios.post(url,{date:givenDate},config).catch((err) => {
 				window.alert(err.response.data.message);
 			});
 			if(res.data)
 			{
-				// console.log(res.data);
 				const data=res.data;
+				if(Object.keys(weekDates).length > 0){
+					data.weekTasks.forEach(task => {		
+						const key = convertDate(new Date(task.startTime));
+	
+						if(task.taskType==="break") weekDates[key].breakTime+=task.duration;
+						else if(task.taskType==="work") weekDates[key].workTime+=task.duration;
+						else if(task.taskType==="meeting") weekDates[key].meetingTime+=task.duration;
+					});
+					setBarChartData(weekDates);
+				}
 				setTaskData(data);
 			}
 			}
@@ -72,13 +97,22 @@ const EmployeePage=()=>{
 		navigate("/");
 	}
 	useEffect(()=>{
-		if(!localStorage.getItem("token"))
-		{
-		navigate("/");
-	  	}
-	 },[]);
+		if(!localStorage.getItem("token")){navigate("/");	}
+		if(date){
+			const weekStart = startOfWeek(new Date(date), { weekStartsOn: 1 });
+			const currDate = weekStart;
+			for(let step=0; step<7; step++){
+			weekDates[convertDate(currDate)]={
+					breakTime : 0,
+					workTime : 0,
+					meetingTime : 0
+				};
+				currDate.setDate(currDate.getDate()+1);	
+			}
+			getTasks(date);
+		}
+	},[date]);
 
-	 useEffect(()=>{getTasks(new Date())},[]);
 
 	return (
 		<div>
@@ -109,9 +143,15 @@ const EmployeePage=()=>{
 							onSubmit={updateTaskList}
 						/>
 					</div>
+					<br></br><br></br>
 					<div>
-						<DisplayPieChart givenDate={new Date()} data={taskData} width={500} height={500}/>
-						<DisplayBarChart givenDate={new Date()} data={ taskData.weekTasks} width={1000} height={300}/>
+						<label htmlFor="req-time" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Date</label>
+                        <input id="req-time"  onChange={handleChange} type="date" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"  />
+					</div>
+
+					<div>
+						<DisplayPieChart givenDate={new Date(date)} data={taskData} width={500} height={500}/>
+						<DisplayBarChart data={barChartData} width={1000} height={300}/>
 					</div>
 				</div>
             </div>

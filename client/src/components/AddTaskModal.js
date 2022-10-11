@@ -64,17 +64,17 @@ function AddTaskModal(props){
                 <div role="alert" className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                     <div className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                         <h1 className="text-gray-800 font-2xl font-bold tracking-normal leading-tight mb-4">Enter Task Details</h1>
-                        <label for="description" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Description</label>
+                        <label htmlFor="description" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Description</label>
                         <input id="description" onChange={handleChange} type="text" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter task's description" />
-						<label for="task-type" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Type</label>
+						<label htmlFor="task-type" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Type</label>
                         <select id="task-type" onChange={handleChange} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">							
 							<option value="break" selected>Break</option>
 							<option value="meeting">Meeting</option>	
 							<option value="work">Work</option>						
 						</select>
-						<label for="start-time" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Start time</label>
+						<label htmlFor="start-time" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Start time</label>
                         <input id="start-time"  onChange={handleChange} type="datetime-local" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter start time" />
-						<label for="total-time" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Time taken</label>
+						<label htmlFor="total-time" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Time taken</label>
                         <input id="total-time" onChange={handleChange} type="number" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter time taken (in minutes)" />
                         <div className="flex items-center justify-start w-full">
                             <button onClick={handleSubmit}  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">

@@ -3,10 +3,7 @@ import { Chart } from 'react-google-charts';
 
 
 function DisplayPieChart({givenDate,data,width,height}){
-	const {weekTasks, prevDayTasks, currDayTasks} = data;
-	// console.log(weekTasks);
-	// console.log(prevDayTasks);
-	// console.log(currDayTasks);
+	const {prevDayTasks, currDayTasks} = data;
 	
 	var currDay={
 		breakTime : 0,
@@ -21,14 +18,12 @@ function DisplayPieChart({givenDate,data,width,height}){
 	}	
 	
 	currDayTasks.forEach(task => {
-		// console.log(element);
 		if(task.taskType==="break") currDay.breakTime+=task.duration;
 		else if(task.taskType==="work") currDay.workTime+=task.duration;
 		else if(task.taskType==="meeting") currDay.meetingTime+=task.duration;
 	});
 
 	prevDayTasks.forEach(task => {
-		// console.log(element);
 		if(task.taskType==="break") prevDay.breakTime+=task.duration;
 		else if(task.taskType==="work") prevDay.workTime+=task.duration;
 		else if(task.taskType==="meeting") prevDay.meetingTime+=task.duration;
@@ -50,7 +45,6 @@ function DisplayPieChart({givenDate,data,width,height}){
 
 	const date = new Date(givenDate);
 	const currDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-	// console.log(currDate);
 	date.setDate(date.getDate()-1);
 	const prevDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 
@@ -63,7 +57,7 @@ function DisplayPieChart({givenDate,data,width,height}){
 	};
 
 	return (
-		<div class="flex">
+		<div className="flex">
 			<div>
 				<Chart
 					chartType="PieChart"

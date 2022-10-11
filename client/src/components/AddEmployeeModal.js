@@ -80,17 +80,17 @@ function AddEmployeeModal(props){
                 <div role="alert" className="container mx-auto w-11/12 md:w-2/3 max-w-lg ">
                     <div className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                         <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Enter Employee Details</h1>
-                        <label for="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Name</label>
+                        <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Name</label>
                         <input id="name" value={employeeInfo.name} onChange={handleChange} type="text" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter employee's name" />
-						<label for="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Email ID</label>
+						<label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Email ID</label>
                         <input id="email" value={employeeInfo.email} onChange={handleChange} type="email" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter employee's email ID" />
-                        <label for="contact" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Contact Number</label>
+                        <label htmlFor="contact" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Contact Number</label>
                         <input id="contact" value={employeeInfo.contact} onChange={handleChange} type="number" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter employee's contact no." />
-                        <label for="department" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Department</label>
+                        <label htmlFor="department" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Department</label>
                         <input id="department" value={employeeInfo.department} onChange={handleChange} type="text" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter employee's department" />
-                        <label for="joining-date" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Joining Date</label>
+                        <label htmlFor="joining-date" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Joining Date</label>
                         <input id="joining-date" value={employeeInfo.joiningDate} onChange={handleChange} type="date" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Enter employee's joining date" />
-                        <label for="password" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Password</label>
+                        <label htmlFor="password" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Password</label>
                         <input id="password" value={employeeInfo.password} onChange={handleChange} type="password" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="*********" />
                         <div className="flex items-center justify-start w-full">
                             <button onClick={handleSubmit}  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">

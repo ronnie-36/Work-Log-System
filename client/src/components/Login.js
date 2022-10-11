@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-function Login(props){
+function Login(){
 	const navigate=useNavigate();
 	useEffect(()=>{
 	
